@@ -5,16 +5,22 @@ import re
 import altair as alt
 from urllib.error import URLError
 
-#st.set_page_config(page_title="DataFrame Demo", page_icon="📊")
+st.set_page_config(page_title="Journal Search Demo", layout="wide")
 
 st.markdown("## AJG (ABS) 2021 Rating")
-#st.sidebar.header("ABS List Search")
+
 st.write(
     """
 You might use this app to look up the AJG rankings for a specific journal. (The lastest metrics is accessable through the [website](https://charteredabs.org/academic-journal-guide-2021/).)
 If you would want to conduct a search for `finance` or `accounting`, please enter `finance|accounting`.
 """
 )
+
+st.sidebar.header("Journal Search")
+
+st.sidebar.markdown("\n")
+kyword = st.sidebar.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
+
 
 # Cache the dataframe so it's only loaded once
 @st.cache
@@ -23,7 +29,7 @@ def get_data():
     return df
 
 df = get_data()
-kyword = st.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
+#kyword = st.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
 
 abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
 
