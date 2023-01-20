@@ -45,9 +45,9 @@ options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
 
 
 abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
-
-
 abs = abs[options + ['JournalTitle','Field','ISSN']]
+
+
 if len(abs) == 0:
     st.write(""" There is no result based on your keywords. Please make sure to separate the keywords by `|` (i.e. Accounting|Finance)
      """)
