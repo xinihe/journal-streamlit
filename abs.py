@@ -21,6 +21,10 @@ st.sidebar.header("Journal Search")
 st.sidebar.markdown("\n")
 kyword = st.sidebar.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
 
+options = st.multiselect('We have data released in 2021 and 2020:',
+    ['AJG2021', 'AJG2020'],
+    ['AJG2021'])
+
 
 # Cache the dataframe so it's only loaded once
 @st.cache
@@ -34,7 +38,7 @@ df = get_data()
 abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
 
 
-abs = abs[['AJG2021','JournalTitle','Field','ISSN']]
+abs = abs[options + ['JournalTitle','Field','ISSN']]
 if len(abs) == 0:
     st.write(""" There is no result based on your keywords. Please make sure to separate the keywords by `|` (i.e. Accounting|Finance)
      """)
