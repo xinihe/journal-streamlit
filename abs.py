@@ -32,7 +32,7 @@ rank = st.sidebar.select_slider(
     'Select a rank of the AJG score',
     options=['4*', '4', '3', '2', '1'])
 
-field = st.sidebar.multiselect('Please choose your interested field', ['Finance','Account'] , ['Finance'])
+field = st.sidebar.multiselect('Please choose your interested field', df['Field'].unique().tolist() , ['FINANCE'])
 
 st.sidebar.subheader('Journal name or keywords search')
 
