@@ -16,16 +16,6 @@ If you would want to conduct a search for `finance` or `accounting`, please ente
 """
 )
 
-st.sidebar.header("Journal Search")
-
-st.sidebar.markdown("\n")
-kyword = st.sidebar.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
-
-options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
-    ['AJG2021', 'AJG2020'],
-    ['AJG2021'])
-
-
 # Cache the dataframe so it's only loaded once
 @st.cache
 def get_data():
@@ -33,7 +23,26 @@ def get_data():
     return df
 
 df = get_data()
-#kyword = st.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
+
+st.sidebar.header("Journal Search")
+
+st.sidebar.subheader('List search')
+
+rank = st.sidebar.select_slider(
+    'Select a rank of the AJG score',
+    options=['4*', '4', '3', '2', '1'])
+
+field = st.sidebar.multiselect('Please choose your interested field', ['Finance','Account'] , ['Finance'])
+
+st.sidebar.subheader('Journal name or keywords search')
+
+st.sidebar.markdown("\n")
+kyword = st.sidebar.text_input('Please provide the journal title or it\'s keyword(s):', 'Finance')
+
+options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
+    ['AJG2021', 'AJG2020'],
+    ['AJG2021'])
+
 
 abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
 
