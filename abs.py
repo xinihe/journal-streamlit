@@ -21,7 +21,7 @@ st.sidebar.header("Journal Search")
 st.sidebar.markdown("\n")
 kyword = st.sidebar.text_input('Please provide the journal title\'s keyword(s):', 'Finance')
 
-options = st.multiselect('We have data released in 2021 and 2020:',
+options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
     ['AJG2021', 'AJG2020'],
     ['AJG2021'])
 
