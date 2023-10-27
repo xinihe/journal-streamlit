@@ -26,13 +26,13 @@ df = get_data()
 
 st.sidebar.header("Journal Search")
 
-st.sidebar.subheader('List search')
+# st.sidebar.subheader('List search')
 
-rank = st.sidebar.select_slider(
-    'Select a rank of the AJG score',
-    options=['4*', '4', '3', '2', '1'])
+# rank = st.sidebar.select_slider(
+#     'Select a rank of the AJG score',
+#     options=['4*', '4', '3', '2', '1'])
 
-field = st.sidebar.multiselect('Please choose your interested field', df['Field'].unique().tolist() , ['FINANCE'])
+# field = st.sidebar.multiselect('Please choose your interested field', df['Field'].unique().tolist() , ['FINANCE'])
 
 st.sidebar.subheader('Journal name or keywords search')
 
