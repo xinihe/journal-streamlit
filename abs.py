@@ -47,7 +47,7 @@ options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
 
 if 'AJG2021' in options:
     abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
-    abs = abs[['JournalTitle','AJG2021','Field','ISSN']].reset_index()
+    abs = abs[['JournalTitle','AJG2021','Field','ISSN']].reset_index(drop=True)
     if len(abs) == 0:
         st.write(""" There is no result in the ABS list based on your keywords. Please make sure to separate the keywords by `|` (i.e. Accounting|Finance)
      """)
@@ -55,16 +55,15 @@ if 'AJG2021' in options:
         st.write('There are `{}` ABS ranked journals match your search.'.format(str(len(abs))))
         st.dataframe(abs.sort_values(by=['AJG2021'],ascending=False), use_container_width=True)
 
-elif 'ABDC2022' in options:
+if 'ABDC2022' in options:
     abdc = df_abdc[df_abdc['Title'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
-    abdc = abdc[['Title','ABDC2022','Field of Research','ISSN']].reset_index()
+    abdc = abdc[['Title','ABDC2022','Field of Research','ISSN']].reset_index(drop=True)
     if len(abdc) == 0:
         st.write(""" There is no result in the ABDC list based on your keywords. Please make sure to separate the keywords by `|` (i.e. Accounting|Finance)
      """)
     else:
         st.write('There are `{}` ABDC ranked journals match your search.'.format(str(len(abdc))))
         st.dataframe(abdc.sort_values(by=['ABDC2022'],ascending=False), use_container_width=True)
-else:
-    st.write('Nothing')
+
 
 st.write('The table is interactive. You can resize tables by dragging and dropping the bottom right corner of tables. Please [let me know](mailto:nihe78@gmail.com) if you experience any difficulty.')
