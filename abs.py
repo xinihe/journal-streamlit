@@ -17,7 +17,7 @@ If you would want to conduct a search for `finance` or `accounting`, please ente
 )
 
 # Cache the dataframe so it's only loaded once
-@st.cache
+#@st.cache
 def get_data():
     df = pd.read_csv('abs2021.csv')
     df_abdc = pd.read_csv('ABDC-finance_A copy.csv')
