@@ -7,7 +7,7 @@ from urllib.error import URLError
 
 st.set_page_config(page_title="Journal Search Demo", layout="wide")
 
-st.markdown("## AJG (ABS) 2021 Rating")
+st.markdown("## ABS and ABDC Rating")
 
 st.write(
     """
