@@ -63,7 +63,7 @@ if 'ABDC2022' in options:
      """)
     else:
         st.write('There are `{}` ABDC ranked journals match your search.'.format(str(len(abdc))))
-        st.dataframe(abdc.sort_values(by=['ABDC2022'],ascending=False), use_container_width=True)
+        st.dataframe(abdc.sort_values(by=['ABDC2022'],ascending=True), use_container_width=True)
 
 
 st.write('The table is interactive. You can resize tables by dragging and dropping the bottom right corner of tables. Please [let me know](mailto:nihe78@gmail.com) if you experience any difficulty.')
