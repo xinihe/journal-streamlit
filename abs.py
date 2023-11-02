@@ -18,13 +18,18 @@ If you would want to conduct a search for `finance` or `accounting`, please ente
 
 # Cache the dataframe so it's only loaded once
 #@st.cache
-def get_data():
-    df = pd.read_csv('abs2021.csv')
-    df_abdc = pd.read_csv('ABDC-finance_A copy.csv')
-    df_zjgsu = pd.read_excel('zjgsu_journal_rank_en.xlsx', index_col=0)
-    return df, df_abdc, df_zjgsu
+# def get_data():
+#     df = pd.read_csv('abs2021.csv')
+#     df_abdc = pd.read_csv('ABDC-finance_A copy.csv')
+#     df_zjgsu = pd.read_excel('zjgsu_journal_rank_en.xlsx', index_col=0)
+#     return df, df_abdc, df_zjgsu
 
-df, df_abdc, df_zjgsu = get_data()
+# df, df_abdc, df_zjgsu = get_data()
+
+df = pd.read_csv('abs2021.csv')
+df_abdc = pd.read_csv('ABDC-finance_A copy.csv')
+df_zjgsu = pd.read_excel('zjgsu_journal_rank_en.xlsx', index_col=0)
+
 df_abdc['ABDC2022'] = df_abdc['Rating']
 df_zjgsu['ZJGSU2022'] = df_zjgsu['rank']
 st.sidebar.header("Journal Search")
