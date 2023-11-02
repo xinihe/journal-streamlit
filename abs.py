@@ -7,11 +7,11 @@ from urllib.error import URLError
 
 st.set_page_config(page_title="Journal Search Demo", layout="wide")
 
-st.markdown("## ABS and ABDC Rating")
+st.markdown("## Journal Rating")
 
 st.write(
     """
-You might use this app to look up the AJG rankings for a specific journal. (The lastest metrics is accessable through the [website](https://charteredabs.org/academic-journal-guide-2021/).)
+You might use this app to look up the AJG/ZJGSU/ABDC rankings for a specific journal. (The lastest metrics is accessable through the [website](https://charteredabs.org/academic-journal-guide-2021/).)
 If you would want to conduct a search for `finance` or `accounting`, please enter `finance|accounting`.
 """
 )
@@ -21,11 +21,12 @@ If you would want to conduct a search for `finance` or `accounting`, please ente
 def get_data():
     df = pd.read_csv('abs2021.csv')
     df_abdc = pd.read_csv('ABDC-finance_A copy.csv')
-    return df, df_abdc
+    df_zjgsu = pd.read_excel('zjgsu_journal_rank_en.xlsx', index_col=0)
+    return df, df_abdc, df_zjgsu
 
-df, df_abdc = get_data()
+df, df_abdc, df_zjgsu = get_data()
 df_abdc['ABDC2022'] = df_abdc['Rating']
-
+df_zjgsu['ZJGSU2022'] = df_zjgsu['rank']
 st.sidebar.header("Journal Search")
 
 # st.sidebar.subheader('List search')
@@ -42,8 +43,18 @@ st.sidebar.markdown("\n")
 kyword = st.sidebar.text_input('Please provide the journal title or it\'s keyword(s):', 'Finance')
 
 options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
-    ['AJG2021','ABDC2022','ZJGS2022'],
+    ['AJG2021','ABDC2022','ZJGSU2022'],
     ['AJG2021'])
+
+if 'ZJGSU2022' in options:
+    zjgsu = df_zjgsu[df_zjgsu['title'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
+    zjgsu = zjgsu[['title','ZJGSU2022','area','type']].reset_index(drop=True)
+    if len(zjgsu) == 0:
+        st.write(""" There is no result in the ZJGSU list based on your keywords. Please make sure to separate the keywords by `|` (i.e. Accounting|Finance)
+     """)
+    else:
+        st.write('There are `{}` ZJGSU(2022) ranked journals match your search.'.format(str(len(zjgsu))))
+        st.dataframe(zjgsu.sort_values(by=['ZJGSU2022'],ascending=False), use_container_width=True)
 
 if 'AJG2021' in options:
     abs = df[df['JournalTitle'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
