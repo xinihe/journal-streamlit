@@ -42,14 +42,14 @@ st.sidebar.header("Journal Search")
 
 # field = st.sidebar.multiselect('Please choose your interested field', df['Field'].unique().tolist() , ['FINANCE'])
 
-st.sidebar.subheader('Journal name or keywords search')
+st.sidebar.subheader('Journal name or keywords search (通过期刊名称或者名称的关键词搜索)')
 
 st.sidebar.markdown("\n")
-kyword = st.sidebar.text_input('Please provide the journal title or it\'s keyword(s):', 'Finance')
+kyword = st.sidebar.text_input('Please provide the journal title or it\'s keyword(s): (键入关键词后回车)', 'Journal of Finance')
 
 options = st.sidebar.multiselect('We have data released in 2021 and 2020:',
     ['AJG2021','ABDC2022','ZJGSU2022'],
-    ['AJG2021'])
+    ['AJG2021','ABDC2022','ZJGSU2022'])
 
 if 'ZJGSU2022' in options:
     zjgsu = df_zjgsu[df_zjgsu['title'].str.contains(kyword, na=False, flags=re.IGNORECASE, regex=True)]
